@@ -6,7 +6,9 @@ st.title("⚔️ Devil's Advocate Agent")
 st.write("Paste your argument, plan, or pitch — I'll challenge it.")
 
 # Load the API key from Streamlit's secrets
-client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+if "client" not in st.session_state:
+    st.session_state.client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+client = st.session_state.client
 
 modes = {
     "investor": """You are a Skeptical Investor evaluating a pitch.
